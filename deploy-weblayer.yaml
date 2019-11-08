@@ -1,0 +1,27 @@
+---
+- name: installing weblayer in remote server
+  hosts: web
+  user: root
+  become: yes
+  tasks:
+  - name: stop the apache
+    service:
+      name: httpd
+      state: stopped
+  - name: install unzip
+    yum:
+      name: unzip
+      state: present    
+  - name: send the zip to remote server
+    copy:
+      src: weblayer-build.zip
+      dest: /tmp/
+  - name: unzip the file in remote server
+    unarchive:
+      src: /tmp/weblayer-build.zip
+      dest: /var/www/html/
+      remote_src: yes
+  - name: start the apache
+    service:
+      name: httpd
+      state: started
