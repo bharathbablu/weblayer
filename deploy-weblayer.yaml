@@ -1,6 +1,6 @@
 ---
 - name: installing weblayer in remote server
-  hosts: web
+  hosts: all
   user: root
   become: yes
   tasks:
